@@ -1,0 +1,16 @@
+html, body { margin: 0; background: #111; }
+a { color: var(--color-accent); }
+a:hover { color: var(--color-accent-600); }
+
+.nav-link:hover { color: var(--color-accent) !important; }
+.footer-link { color: var(--color-neutral-200); text-decoration: none; font-size: 15px; }
+.footer-link:hover { color: #fff; }
+
+.kicker { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.kicker.accent { color: var(--color-accent-700); }
+.lede { margin: 0 0 48px; font-size: clamp(20px,2vw,26px); line-height: 1.45; max-width: 44ch; text-wrap: pretty; }
+.arrow-link { font-weight: 600; text-decoration: none; display: flex; gap: 10px; align-items: center; }
+
+.btn-arrow { display: flex; gap: 12px; align-items: center; justify-content: flex-start; }
+.btn-ink { background: var(--color-text); color: #fff; border: 2px solid var(--color-text); }
+.btn-ink:hover { background: #000; }
