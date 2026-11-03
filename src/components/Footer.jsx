@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GUTTER, btnRadius } from '../config.js';
 import { navLinks } from '../data/content.js';
+import SocialLinks from './SocialLinks.jsx';
 
 export default function Footer() {
   const [listed, setListed] = useState(false);
@@ -19,6 +20,7 @@ export default function Footer() {
           <h6 style={{ margin: 0, color: '#fff' }}>Find us</h6>
           <a className="footer-link" href="https://www.google.com/maps/search/?api=1&query=15353+S+Loder+Rd%2C+Oregon+City%2C+OR+97045" target="_blank" rel="noopener noreferrer">15353 S Loder Rd.<br />Oregon City, OR 97045</a>
           <a className="footer-link" href="mailto:nickkclark@gmail.com">nickkclark@gmail.com</a>
+          <div style={{ marginTop: 6 }}><SocialLinks className="footer-link" /></div>
         </div>
         <form onSubmit={(e) => { e.preventDefault(); setListed(true); }} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           <h6 style={{ margin: 0, color: '#fff' }}>Mailing list</h6>

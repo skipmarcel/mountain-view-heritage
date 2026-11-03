@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GUTTER, photoFilter, btnRadius } from '../config.js';
+import SocialLinks from '../components/SocialLinks.jsx';
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -32,6 +33,10 @@ export default function Contact() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           <h6 style={{ margin: 0 }}>Write</h6>
           <p style={{ margin: 0, fontSize: 18 }}><a href="mailto:nickkclark@gmail.com">nickkclark@gmail.com</a></p>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <h6 style={{ margin: 0 }}>Follow</h6>
+          <SocialLinks size={28} />
         </div>
         <img src="/assets/photos/kitchen-14.jpg" alt="Hand-forged knives on a magnetic strip" style={{ width: '100%', aspectRatio: '16/10', objectFit: 'cover', filter: photoFilter }} />
       </div>

@@ -10,6 +10,11 @@ export const navLinks = [
   { to: '/contact', label: 'Contact' },
 ];
 
+export const socialLinks = [
+  { label: 'Instagram', href: 'https://www.instagram.com/mtviewheritage/' },
+  { label: 'Facebook', href: 'https://www.facebook.com/share/19he1KDkHv/?mibextid=wwXIfr' },
+];
+
 // Inner-page photo banners. height also sets where the page content starts.
 export const banners = {
   // fit: 'contain' shows the whole photo below the nav; 62.4vw is the photo's height/width ratio.
