@@ -1,0 +1,21 @@
+# Rebuilds the site on Vercel every morning so the Calendar picks up PCC schedule changes.
+# The build runs scripts/scrape-pcc.mjs before vite build (see "prebuild" in package.json).
+# Needs the repo secret VERCEL_DEPLOY_HOOK (Vercel → Settings → Git → Deploy Hooks).
+
+name: Daily rebuild
+
+on:
+  schedule:
+    - cron: '0 13 * * *' # 13:00 UTC = 5am PST / 6am PDT
+  workflow_dispatch: # lets you run it by hand from the Actions tab
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "VERCEL_DEPLOY_HOOK secret is not set"; exit 1; fi
+          curl -fsS -X POST "$HOOK"
