@@ -6,7 +6,7 @@ export const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/education', label: 'Education' },
   { to: '/events', label: 'Events' },
-  { to: '/calendar', label: 'Calendar' },
+  { to: '/calendar', label: 'Class Calendar' },
   { to: '/contact', label: 'Contact' },
 ];
 
