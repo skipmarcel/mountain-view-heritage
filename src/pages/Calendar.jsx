@@ -13,7 +13,7 @@ export default function Calendar({ narrow }) {
   return (
     <section style={{ maxWidth: 1440, margin: '0 auto', padding: `clamp(28px,4vw,56px) ${GUTTER} clamp(56px,8vw,112px)` }}>
       <p style={{ fontSize: 14, margin: '0 0 32px' }}>
-        Classes are held at the farm and booked through Portland Community College, with dates updated daily from PCC’s schedule. If a class shows as full, <a href="mailto:nickkclark@gmail.com" style={{ fontWeight: 700 }}>EMAIL NICK DIRECTLY</a>. We often have extra room or cancelations.
+        Classes are held at our farm in Oregon City, OR, and booked through Portland Community College, with dates updated daily from PCC’s schedule. If a class shows as full, <a href="mailto:nickkclark@gmail.com" style={{ fontWeight: 700 }}>EMAIL NICK DIRECTLY</a>. We often have extra room or cancelations.
       </p>
       <div style={{ borderTop: '2px solid var(--color-text)' }}>
         {upcoming.map((s) => {
