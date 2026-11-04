@@ -81,7 +81,7 @@ export default function Home({ narrow }) {
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: `clamp(64px,9vw,128px) ${GUTTER}`, display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'flex-start' }}>
           <h2 style={{ margin: 0, fontSize: 'clamp(44px,7vw,112px)', lineHeight: 0.95, letterSpacing: '-.03em', maxWidth: '14ch' }}>Bring your hands. We supply the rest.</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <button className="btn btn-ink btn-arrow" onClick={() => navigate('/calendar')} style={{ borderRadius: btnRadius, minWidth: 260 }}>View the calendar <span>→</span></button>
+            <button className="btn btn-ink btn-arrow" onClick={() => navigate('/calendar')} style={{ borderRadius: btnRadius, minWidth: 260 }}>View the class calendar <span>→</span></button>
             <button className="btn btn-ink btn-arrow" onClick={() => navigate('/contact')} style={{ borderRadius: btnRadius, minWidth: 260 }}>Schedule a private event <span>→</span></button>
           </div>
         </div>
