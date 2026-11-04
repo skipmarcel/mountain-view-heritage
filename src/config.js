@@ -5,7 +5,7 @@ export const config = {
   buttonRadius: 11,                  // px
   clipSeconds: 5,                    // how long each hero clip plays
   fadeSeconds: 1.2,                  // crossfade length
-  logoOpacity: 0.65,                 // hero logo opacity
+  logoOpacity: 1,                    // hero logo opacity
   logoMargin: 48,                    // px, hero logo margin from the left edge
   photoTreatment: 'Color',           // 'Color' | 'Black & white'
 };
@@ -18,13 +18,14 @@ export const FONT_PAIRINGS = {
 };
 
 export const HERO_CLIPS = [
-  '/videos/20260308_151655.mp4',
-  '/videos/Snapchat-1179621992.mp4',
-  '/videos/Snapchat-1511062850.mp4',
-  '/videos/Snapchat-1657299005.mp4',
+  { src: '/videos/20260308_151655.mp4' },
+  { src: '/videos/Snapchat-1179621992.mp4' },
+  { src: '/videos/Snapchat-1511062850.mp4', cropBottom: 0.24 }, // hides the Snapchat caption at the bottom
+  { src: '/videos/Snapchat-1657299005.mp4' },
 ];
 
 export const NAV_HEIGHT = 112;
+export const PEEK = 56; // px of the home page that shows below the hero, so visitors can tell there's more
 export const GUTTER = 'clamp(20px,4vw,56px)';
 export const photoFilter = config.photoTreatment === 'Black & white' ? 'grayscale(1) contrast(1.08)' : 'none';
 export const btnRadius = config.buttonRadius + 'px';
