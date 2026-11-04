@@ -9,16 +9,11 @@ export default function Calendar({ narrow }) {
   // Hide sessions that have passed since the last scrape.
   const today = localIso(new Date());
   const upcoming = pcc.sessions.filter((s) => s.date >= today);
-  const updated = new Date(pcc.scrapedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
   return (
-    <section style={{ maxWidth: 1440, margin: '0 auto', padding: `clamp(56px,8vw,112px) ${GUTTER}` }}>
-      <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap', marginBottom: 16 }}>
-        <span className="tag tag-accent">Register through PCC</span>
-        <span style={{ fontSize: 14 }}>Classes are held at the farm and booked through Portland Community College. Updated {updated}.</span>
-      </div>
+    <section style={{ maxWidth: 1440, margin: '0 auto', padding: `clamp(28px,4vw,56px) ${GUTTER} clamp(56px,8vw,112px)` }}>
       <p style={{ fontSize: 14, margin: '0 0 32px' }}>
-        If the class reads as full on the Portland Community College registration site, <a href="mailto:nickkclark@gmail.com" style={{ fontWeight: 700 }}>EMAIL NICK DIRECTLY</a>. We often have more room or cancelations.
+        Classes are held at the farm and booked through Portland Community College, with dates updated daily from PCC’s schedule. If a class shows as full, <a href="mailto:nickkclark@gmail.com" style={{ fontWeight: 700 }}>EMAIL NICK DIRECTLY</a>. We often have extra room or cancelations.
       </p>
       <div style={{ borderTop: '2px solid var(--color-text)' }}>
         {upcoming.map((s) => {
