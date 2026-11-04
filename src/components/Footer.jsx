@@ -15,6 +15,7 @@ export default function Footer() {
           {navLinks.map((l) => (
             <Link key={l.to} to={l.to} className="footer-link">{l.label}</Link>
           ))}
+          <Link to="/events/pay" className="footer-link">Pay for an event</Link>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           <h6 style={{ margin: 0, color: '#fff' }}>Find us</h6>

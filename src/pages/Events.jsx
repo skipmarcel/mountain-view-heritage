@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 import { GUTTER, photoFilter } from '../config.js';
 import { events } from '../data/content.js';
+import { EVENT, money } from '../data/shop.js';
 
 export default function Events() {
   return (
     <section style={{ maxWidth: 1440, margin: '0 auto', padding: `clamp(56px,8vw,112px) ${GUTTER}` }}>
-      <p className="lede">Beyond classes, the farm hosts dinners, whole-animal roasts and private sessions for groups.</p>
+      <p className="lede" style={{ marginBottom: 16 }}>Beyond classes, the farm hosts long-table charcuterie tastings, private group sessions and parties of your own design.</p>
+      <p style={{ margin: '0 0 48px', fontSize: 16, lineHeight: 1.6, maxWidth: '60ch' }}>
+        Private events are <strong>{money(EVENT.pricePerPerson)} per person</strong>, for groups of {EVENT.minGuests} to {EVENT.maxGuests} guests. <Link to="/contact">Get in touch</Link> to plan a date. Once it’s set, you can <Link to="/events/pay">pay online</Link>.
+      </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,320px),1fr))', borderTop: '2px solid var(--color-text)', borderLeft: '2px solid var(--color-text)' }}>
         {events.map((e) => (
           <article key={e.title} style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 24, borderRight: '2px solid var(--color-text)', borderBottom: '2px solid var(--color-text)' }}>
@@ -16,6 +20,7 @@ export default function Events() {
           </article>
         ))}
       </div>
+      <Link to="/events/pay" className="arrow-link" style={{ marginTop: 32 }}>Already booked an event? Pay here <span>→</span></Link>
     </section>
   );
 }

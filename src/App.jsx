@@ -13,6 +13,9 @@ import Education from './pages/Education.jsx';
 import Events from './pages/Events.jsx';
 import Calendar from './pages/Calendar.jsx';
 import Contact from './pages/Contact.jsx';
+import Shop from './pages/Shop.jsx';
+import EventPay from './pages/EventPay.jsx';
+import Thanks from './pages/Thanks.jsx';
 
 export default function App() {
   const { pathname } = useLocation();
@@ -77,6 +80,9 @@ export default function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/calendar" element={<Calendar narrow={vp.narrow} />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/events/pay" element={<EventPay />} />
+          <Route path="/thanks" element={<Thanks />} />
           <Route path="*" element={<Home narrow={vp.narrow} />} />
         </Routes>
         <Footer />

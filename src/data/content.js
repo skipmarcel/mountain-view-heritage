@@ -7,6 +7,7 @@ export const navLinks = [
   { to: '/education', label: 'Education' },
   { to: '/events', label: 'Events' },
   { to: '/calendar', label: 'Class Calendar' },
+  { to: '/shop', label: 'Shop' },
   { to: '/contact', label: 'Contact' },
 ];
 
@@ -19,8 +20,11 @@ export const socialLinks = [
 export const banners = {
   // fit: 'contain' shows the whole photo below the nav; 62.4vw is the photo's height/width ratio.
   education: { img: P + 'nick-01.jpg', pos: 'center 50%', kicker: 'Hands-on classes', title: 'Education', fit: 'contain', height: `calc(${NAV_HEIGHT}px + min(62.4vw, 100vh - ${NAV_HEIGHT}px))` },
-  events: { img: P + 'kitchen-11.jpg', pos: 'center 60%', kicker: 'Dinners, roasts & private groups', title: 'Events' },
+  events: { img: P + 'kitchen-11.jpg', pos: 'center 60%', kicker: 'Tastings, parties & private groups', title: 'Events' },
   calendar: { img: P + 'kitchen-12.jpg', pos: 'center 45%', kicker: 'Upcoming sessions', title: 'Calendar' },
+  shop: { img: P + 'food-05.jpg', pos: 'center 50%', kicker: 'Hats & stickers', title: 'Shop' },
+  'events/pay': { img: P + 'food-03.jpg', pos: 'center 50%', kicker: 'Private events', title: 'Pay for an event' },
+  thanks: { img: P + 'mt-hood-trees.jpg', pos: 'center 40%', kicker: 'Payment received', title: 'Thank you' },
   contact: { img: P + 'mt-hood.jpg', pos: 'center 15%', kicker: 'Questions, groups, visits', title: 'Contact', height: '88vh' },
 };
 
