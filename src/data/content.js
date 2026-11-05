@@ -22,6 +22,7 @@ export const banners = {
   education: { img: P + 'nick-01.jpg', pos: 'center 50%', kicker: 'Hands-on classes', title: 'Education', fit: 'contain', height: `calc(${NAV_HEIGHT}px + min(62.4vw, 100vh - ${NAV_HEIGHT}px))` },
   events: { img: P + 'kitchen-11.jpg', pos: 'center 60%', kicker: 'Tastings, parties & private groups', title: 'Events' },
   calendar: { img: P + 'kitchen-12.jpg', pos: 'center 45%', kicker: 'Upcoming sessions', title: 'Calendar' },
+  'events/workshop': { img: P + 'kitchen-09.jpg', pos: 'center 50%', kicker: 'Check availability', title: 'Life-to-Table Workshop' },
   shop: { img: P + 'food-05.jpg', pos: 'center 50%', kicker: 'Hats & stickers', title: 'Shop' },
   'events/pay': { img: P + 'food-03.jpg', pos: 'center 50%', kicker: 'Private events', title: 'Pay for an event' },
   thanks: { img: P + 'mt-hood-trees.jpg', pos: 'center 40%', kicker: 'Payment received', title: 'Thank you' },
@@ -55,3 +56,32 @@ export const events = [
   { title: 'Private group sessions', img: P + 'kitchen-09.jpg', body: 'Book the kitchen classroom for a team, a club or a celebration.' },
 ];
 
+
+// "Upcoming Events" section at the top of the Events page.
+export const workshop = {
+  // Where the "Check availability" button goes. Use a full https:// link for another
+  // site (opens in a new tab) or a path like /contact for a page on this site.
+  availabilityUrl: '/events/workshop',
+  inquiryMessage: 'I’m interested in the Life-to-Table workshop!', // pre-filled on that form
+  photo: '/assets/workshop/flyer-kitchen.jpg',
+  photoAlt: 'Workshop participants butchering at a long wooden kitchen table',
+  logo: '/assets/workshop/pig-logo-trans.png',
+  brand: 'Mountain View Heritage',
+  kicker: 'Three-Day',
+  title: 'Life-to-Table Workshop',
+  topics: ['Whole-Hog Butchery', 'Charcuterie', 'Traditional Preservation'],
+  tagline: 'The whole journey. The whole animal.',
+  body: 'Join us at the farm for three days of hands-on learning, traditional craft, and shared meals. Put your hands in the craft of a life-to-table experience, honoring the animal from thoughtful harvest to the table.',
+  days: [
+    { label: 'Day One', title: 'The Harvest' },
+    { label: 'Day Two', title: 'Curing & Preservation' },
+    { label: 'Day Three', title: 'The Whole Animal: Offal & Sausage' },
+  ],
+  prices: [
+    { amount: '$400', unit: 'per day' },
+    { amount: '$1,000', unit: 'for all three days' },
+  ],
+  priceNote: 'Rustic meals with beverages are included each day.',
+  dates: 'March 12–14, 2027',
+  address: ['15353 S Loder Rd.', 'Oregon City, OR 97045'],
+};

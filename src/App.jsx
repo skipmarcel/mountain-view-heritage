@@ -15,6 +15,7 @@ import Calendar from './pages/Calendar.jsx';
 import Contact from './pages/Contact.jsx';
 import Shop from './pages/Shop.jsx';
 import EventPay from './pages/EventPay.jsx';
+import WorkshopInquiry from './pages/WorkshopInquiry.jsx';
 import Thanks from './pages/Thanks.jsx';
 
 export default function App() {
@@ -82,6 +83,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/events/pay" element={<EventPay />} />
+          <Route path="/events/workshop" element={<WorkshopInquiry />} />
           <Route path="/thanks" element={<Thanks />} />
           <Route path="*" element={<Home narrow={vp.narrow} />} />
         </Routes>

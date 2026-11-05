@@ -21,3 +21,52 @@ a:hover { color: var(--color-accent-600); }
 .scroll-cue svg { animation: cue-bob 1.6s ease-in-out infinite; }
 @keyframes cue-bob { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(4px); } }
 @media (prefers-reduced-motion: reduce) { .scroll-cue svg { animation: none; } }
+
+/* Life-to-Table Workshop (Events page). Follows design_handoff_life_to_table_workshop. */
+.workshop {
+  --font-heading: "Archivo", system-ui, sans-serif;
+  --font-body: "Archivo", system-ui, sans-serif;
+  --color-accent: #ec3013;
+  --color-accent-600: #dd2b0f;
+  --color-accent-700: #ae1800;
+  display: flex; flex-direction: column; gap: clamp(20px,2.2vw,32px); padding: 5%;
+  background: #d8c398 url(/assets/workshop/texture-02.jpg) center/cover no-repeat;
+  color: var(--color-text); font-family: var(--font-body);
+}
+.workshop-photo { display: block; width: 100%; aspect-ratio: 21/10; object-fit: cover; object-position: center 45%; box-sizing: border-box; border: 2px solid var(--color-text); filter: grayscale(1) contrast(1.08); }
+.workshop-title { display: grid; grid-template-columns: 19% minmax(0,1fr); column-gap: 4%; align-items: end; }
+.workshop-logo { display: block; width: 120%; max-width: none; margin: -10%; }
+.workshop-title-text { display: flex; flex-direction: column; gap: 12px; }
+.workshop-brand { font-weight: 800; font-size: clamp(14px,1.5vw,20px); letter-spacing: .14em; text-transform: uppercase; padding-bottom: 12px; border-bottom: 2px solid var(--color-text); }
+.workshop-kicker { font-weight: 600; font-size: clamp(15px,1.6vw,22px); letter-spacing: .06em; text-transform: uppercase; color: var(--color-accent-700); }
+.workshop h3 { margin: 0; font-size: clamp(38px,6vw,88px); font-weight: 800; line-height: .92; letter-spacing: -.03em; text-transform: uppercase; text-wrap: balance; }
+.workshop-topics { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: clamp(14px,1.3vw,18px); font-weight: 600; }
+.workshop-topics i { font-style: normal; color: var(--color-accent); }
+.workshop-intro { display: grid; grid-template-columns: 19% minmax(0,1fr); column-gap: 4%; padding-top: clamp(20px,2.2vw,32px); border-top: 2px solid var(--color-text); }
+.workshop-tagline { font-weight: 800; font-size: clamp(18px,1.7vw,24px); line-height: 1.1; color: var(--color-accent-700); text-wrap: balance; }
+.workshop-intro p { margin: 0; font-size: clamp(16px,1.4vw,19px); line-height: 1.45; text-wrap: pretty; }
+.workshop-cells { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
+.workshop-schedule { border-top: 2px solid var(--color-text); border-bottom: 2px solid var(--color-text); }
+.workshop-cell { display: flex; flex-direction: column; gap: 8px; padding: 0 clamp(16px,2vw,28px); border-left: 2px solid var(--color-text); }
+.workshop-cell:first-child { padding-left: 0; border-left: 0; }
+.workshop-cell:last-child { padding-right: 0; }
+.workshop-schedule .workshop-cell { padding-top: 18px; padding-bottom: 18px; }
+.workshop-label { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-accent-700); }
+.workshop-day { font-weight: 800; font-size: clamp(19px,1.9vw,26px); line-height: 1.05; }
+.workshop-price { font-weight: 800; font-size: clamp(26px,2.5vw,34px); line-height: 1; }
+.workshop-price span { font-size: clamp(14px,1.2vw,16px); font-weight: 600; }
+.workshop-note { font-size: 14px; line-height: 1.35; }
+.workshop-where { font-weight: 800; font-size: clamp(17px,1.6vw,22px); line-height: 1.15; }
+.workshop-btn { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 20px; border-radius: 8px; background: var(--color-accent); color: var(--color-bg); font-weight: 800; font-size: clamp(17px,1.6vw,22px); line-height: 1.1; text-decoration: none; }
+.workshop-btn:hover { background: var(--color-accent-600); color: var(--color-bg); }
+.workshop-btn:active { background: var(--color-accent-700); }
+@media (max-width: 700px) {
+  .workshop-title, .workshop-intro, .workshop-cells { grid-template-columns: minmax(0,1fr); }
+  .workshop-logo { width: 150px; margin: -12px 0 4px -14px; }
+  .workshop-tagline { margin-bottom: 12px; }
+  .workshop-cell, .workshop-cell:first-child, .workshop-cell:last-child { padding-left: 0; padding-right: 0; border-left: 0; }
+  .workshop-cell + .workshop-cell { border-top: 2px solid var(--color-text); }
+  .workshop-details .workshop-cell { padding-top: 18px; padding-bottom: 18px; }
+  .workshop-details .workshop-cell:first-child { padding-top: 0; }
+  .workshop-details .workshop-cell:last-child { padding-bottom: 0; }
+}
