@@ -56,7 +56,7 @@ export default async function handler(req, res) {
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const session = await stripe.checkout.sessions.create({
-      ui_mode: 'embedded',
+      ui_mode: 'embedded_page',
       mode: 'payment',
       return_url: `${origin}/thanks?type=${body.type === 'event' ? 'event' : 'merch'}`,
       ...params,
