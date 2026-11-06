@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { GUTTER, btnRadius } from '../config.js';
 import { workshop } from '../data/content.js';
+import { sendForm } from '../formspree.js';
 
 const NICK_EMAIL = 'nickkclark@gmail.com';
 
-// Where the Life-to-Table Workshop's "Check availability" button goes. api/workshop-inquiry.js emails Nick.
+// Where the Life-to-Table Workshop's "Check availability" button goes. Emails Nick through Formspree.
 export default function WorkshopInquiry() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: workshop.inquiryMessage, company: '', days: workshop.days.map((d) => d.label) });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: workshop.inquiryMessage, _gotcha: '', days: workshop.days.map((d) => d.label) });
   const [status, setStatus] = useState('idle'); // idle → sending → sent | error
   const [error, setError] = useState('');
   const field = (key) => ({ value: form[key], onChange: (e) => setForm((f) => ({ ...f, [key]: e.target.value })) });
@@ -22,9 +23,17 @@ export default function WorkshopInquiry() {
     }
     setStatus('sending');
     try {
-      const res = await fetch('/api/workshop-inquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || 'Your message could not be sent.');
+      const allDays = form.days.length === workshop.days.length;
+      await sendForm({
+        _subject: `Life-to-Table Workshop inquiry from ${form.name}`,
+        _gotcha: form._gotcha,
+        form: 'Life-to-Table Workshop',
+        name: form.name,
+        email: form.email,
+        phone: form.phone || 'Not provided',
+        days: allDays ? 'All three days' : workshop.days.filter((d) => form.days.includes(d.label)).map((d) => `${d.label}: ${d.title}`).join(', '),
+        message: form.message,
+      });
       setStatus('sent');
     } catch (err) {
       setError(err.message);
@@ -55,7 +64,7 @@ export default function WorkshopInquiry() {
             </fieldset>
             <div className="field"><label htmlFor="inquiry-message">Message</label><textarea id="inquiry-message" className="input" rows={5} required {...field('message')} /></div>
             {/* Spam trap: hidden from people, filled in by bots. */}
-            <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: -9999 }} {...field('company')} />
+            <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: -9999 }} {...field('_gotcha')} />
             <button className="btn btn-primary btn-arrow" type="submit" disabled={status === 'sending'} style={{ borderRadius: btnRadius, minWidth: 220, alignSelf: 'flex-start' }}>
               {status === 'sending' ? 'Sending…' : 'Send message'} <span>→</span>
             </button>
