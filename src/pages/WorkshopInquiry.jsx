@@ -57,7 +57,7 @@ export default function WorkshopInquiry() {
               {workshop.days.map((d) => (
                 <label key={d.label} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', cursor: 'pointer' }}>
                   <input type="checkbox" checked={form.days.includes(d.label)} onChange={() => toggleDay(d.label)} style={{ marginTop: 4 }} />
-                  <span>{d.label}: {d.title}</span>
+                  <span>{d.label} ({d.date}): {d.title}</span>
                 </label>
               ))}
               <span style={{ fontSize: 14 }}>{workshop.prices.map((p) => `${p.amount} ${p.unit}`).join(' · ')}</span>

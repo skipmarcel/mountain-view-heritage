@@ -1,4 +1,5 @@
 import { NAV_HEIGHT } from '../config.js';
+import { WORKSHOP, money } from './shop.js';
 
 const P = '/assets/photos/';
 
@@ -24,6 +25,7 @@ export const banners = {
   calendar: { img: P + 'kitchen-12.jpg', pos: 'center 45%', kicker: 'Upcoming sessions', title: 'Calendar' },
   'events/workshop': { img: P + 'kitchen-09.jpg', pos: 'center 50%', kicker: 'Check availability', title: 'Life-to-Table Workshop' },
   shop: { img: P + 'food-05.jpg', pos: 'center 50%', kicker: 'Hats & stickers', title: 'Shop' },
+  'events/workshop/pay': { img: P + 'kitchen-09.jpg', pos: 'center 50%', kicker: 'Life-to-Table Workshop', title: 'Workshop payment' },
   'events/pay': { img: P + 'food-03.jpg', pos: 'center 50%', kicker: 'Private events', title: 'Pay for an event' },
   thanks: { img: P + 'mt-hood-trees.jpg', pos: 'center 40%', kicker: 'Payment received', title: 'Thank you' },
   contact: { img: P + 'mt-hood.jpg', pos: 'center 15%', kicker: 'Questions, groups, visits', title: 'Contact', height: '88vh' },
@@ -78,13 +80,13 @@ export const workshop = {
   tagline: 'The whole journey. The whole animal.',
   body: 'Join us at the farm for three days of hands-on learning, traditional craft, and shared meals. Put your hands in the craft of a life-to-table experience, honoring the animal from thoughtful harvest to the table.',
   days: [
-    { label: 'Day One', title: 'The Harvest' },
-    { label: 'Day Two', title: 'Curing & Preservation' },
-    { label: 'Day Three', title: 'The Whole Animal: Offal & Sausage' },
+    { label: 'Day One', date: 'Friday, March 12', title: 'The Harvest' },
+    { label: 'Day Two', date: 'Saturday, March 13', title: 'Curing & Preservation' },
+    { label: 'Day Three', date: 'Sunday, March 14', title: 'The Whole Animal: Offal & Sausage' },
   ],
-  prices: [
-    { amount: '$400', unit: 'per day' },
-    { amount: '$1,000', unit: 'for all three days' },
+  prices: [ // set in shop.js
+    { amount: money(WORKSHOP.perDay), unit: 'per day' },
+    { amount: money(WORKSHOP.allDays), unit: 'for all three days' },
   ],
   priceNote: 'Rustic meals with beverages are included each day.',
   dates: 'March 12–14, 2027',

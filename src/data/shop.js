@@ -14,4 +14,13 @@ export const PICKUP_ADDRESS = '15353 S Loder Rd., Oregon City, OR 97045';
 
 export const EVENT = { pricePerPerson: 20700, minGuests: 6, maxGuests: 20 };
 
+// Life-to-Table Workshop, per person. Days are listed in content.js.
+// Card prices are $400 a day and $1,000 for all three, plus Stripe's fee; the flyer and inquiry form show these.
+// Paying cash on the day costs the plain $400 / $1,000, after a non-refundable card deposit:
+// the customer pays `deposit` ($100 plus Stripe's fee) now, and `depositCredit` comes off the cash balance.
+export const WORKSHOP = { perDay: 41300, allDays: 103100, cashPerDay: 40000, cashAllDays: 100000, deposit: 10400, depositCredit: 10000 };
+export const workshopPrice = (count, totalDays, cash = false) =>
+  count === totalDays ? (cash ? WORKSHOP.cashAllDays : WORKSHOP.allDays) : count * (cash ? WORKSHOP.cashPerDay : WORKSHOP.perDay);
+export const workshopCashDue = (count, totalDays) => workshopPrice(count, totalDays, true) - WORKSHOP.depositCredit;
+
 export const money = (cents) => (cents / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: cents % 100 ? 2 : 0 });

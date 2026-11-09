@@ -4,7 +4,8 @@
 // Prices always come from src/data/shop.js, never from the browser.
 
 import Stripe from 'stripe';
-import { MERCH, MAX_PER_ITEM, SHIPPING, PICKUP_ADDRESS, EVENT } from '../src/data/shop.js';
+import { MERCH, MAX_PER_ITEM, SHIPPING, PICKUP_ADDRESS, EVENT, WORKSHOP, money, workshopPrice, workshopCashDue } from '../src/data/shop.js';
+import { workshop } from '../src/data/content.js';
 
 function merchSession({ items = {}, delivery }, origin) {
   const line_items = MERCH.map((p) => ({ p, qty: Math.min(MAX_PER_ITEM, Math.max(0, parseInt(items[p.id], 10) || 0)) }))
@@ -40,6 +41,34 @@ function eventSession({ guests, eventDate }) {
   };
 }
 
+// payment: 'card' pays in full now; 'cash' pays a non-refundable deposit now and the rest in cash on the day.
+function workshopSession({ days, payment }) {
+  const chosen = Array.isArray(days) ? days : [];
+  const picked = workshop.days.filter((d) => chosen.includes(d.label));
+  if (!picked.length) throw new Error('Please choose at least one day.');
+  const total = workshop.days.length;
+  const cash = payment === 'cash';
+  const howMany = picked.length === total ? 'all three days' : picked.length === 1 ? '1 day' : `${picked.length} days`;
+  const dayList = `${workshop.dates}. ${picked.map((d) => `${d.label}: ${d.title}`).join(', ')}`;
+  const due = workshopCashDue(picked.length, total);
+
+  return {
+    line_items: [{
+      quantity: 1,
+      price_data: {
+        currency: 'usd',
+        unit_amount: cash ? WORKSHOP.deposit : workshopPrice(picked.length, total),
+        product_data: cash
+          ? { name: `${workshop.title}: non-refundable deposit (${howMany})`, description: `${dayList}. Balance of ${money(due)} due in cash on your first day.` }
+          : { name: `${workshop.title}: ${howMany}`, description: dayList },
+      },
+    }],
+    phone_number_collection: { enabled: true },
+    ...(cash && { custom_text: { submit: { message: `This deposit is non-refundable. Bring the balance of ${money(due)} in cash on your first day.` } } }),
+    metadata: { order_type: 'workshop', payment: cash ? 'cash deposit' : 'card', days: picked.map((d) => d.label).join(', '), ...(cash && { cash_due: money(due) }) },
+  };
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed.' });
   if (!process.env.STRIPE_SECRET_KEY) return res.status(503).json({ error: 'Online payments are not set up yet.' });
@@ -48,7 +77,7 @@ export default async function handler(req, res) {
   const body = req.body || {};
   let params;
   try {
-    params = body.type === 'event' ? eventSession(body) : merchSession(body, origin);
+    params = body.type === 'event' ? eventSession(body) : body.type === 'workshop' ? workshopSession(body) : merchSession(body, origin);
   } catch (err) {
     return res.status(400).json({ error: err.message });
   }
@@ -58,7 +87,7 @@ export default async function handler(req, res) {
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded_page',
       mode: 'payment',
-      return_url: `${origin}/thanks?type=${body.type === 'event' ? 'event' : 'merch'}`,
+      return_url: `${origin}/thanks?type=${['event', 'workshop'].includes(body.type) ? body.type : 'merch'}${params.metadata.cash_due ? `&due=${encodeURIComponent(params.metadata.cash_due)}` : ''}`,
       ...params,
     });
     res.status(200).json({ clientSecret: session.client_secret });
