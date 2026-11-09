@@ -56,6 +56,11 @@ export const events = [
   { title: 'Private group sessions', img: P + 'kitchen-09.jpg', body: 'Book the kitchen classroom for a team, a club or a celebration.' },
 ];
 
+// Home page review carousel. Live Google reviews (api/reviews.js) replace these once set up;
+// these only show if Google isn't available. The section stays hidden if there are none.
+// Copy real reviews word for word; rating (1–5), source and date are optional. Example:
+//   { name: 'Jane D.', rating: 5, source: 'Google', date: 'October 2026', text: 'The review, word for word.' },
+export const reviews = [];
 
 // "Upcoming Events" section at the top of the Events page.
 export const workshop = {

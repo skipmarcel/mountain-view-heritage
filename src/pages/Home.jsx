@@ -1,12 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { GUTTER, photoFilter, btnRadius } from '../config.js';
-import { offerings, mosaic } from '../data/content.js';
+import { offerings, mosaic, reviews } from '../data/content.js';
+import ReviewCarousel, { useReviews } from '../components/ReviewCarousel.jsx';
 
 const h2 = { margin: 0, fontSize: 'clamp(32px,3.8vw,56px)', lineHeight: 1.02, letterSpacing: '-.02em' };
 const p = { margin: 0, fontSize: 18, lineHeight: 1.6, maxWidth: '56ch', textWrap: 'pretty' };
 
 export default function Home({ narrow }) {
   const navigate = useNavigate();
+  const googleReviews = useReviews(reviews);
   return (
     <>
       <section style={{ maxWidth: 1440, margin: '0 auto', padding: `clamp(56px,8vw,112px) ${GUTTER}` }}>
@@ -76,6 +78,8 @@ export default function Home({ narrow }) {
           <img key={m.src} src={m.src} alt={m.alt} style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', display: 'block', filter: photoFilter }} />
         ))}
       </section>
+
+      <ReviewCarousel reviews={googleReviews.reviews} summary={googleReviews} kicker="04 — Reviews" title="What our guests say." />
 
       <section style={{ background: 'var(--color-accent)', color: '#fff' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: `clamp(64px,9vw,128px) ${GUTTER}`, display: 'flex', flexDirection: 'column', gap: 32, alignItems: 'flex-start' }}>
