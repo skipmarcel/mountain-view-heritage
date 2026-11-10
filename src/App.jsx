@@ -17,6 +17,7 @@ import Shop from './pages/Shop.jsx';
 import EventPay from './pages/EventPay.jsx';
 import WorkshopInquiry from './pages/WorkshopInquiry.jsx';
 import WorkshopPay from './pages/WorkshopPay.jsx';
+import Membership from './pages/Membership.jsx';
 import Thanks from './pages/Thanks.jsx';
 
 export default function App() {
@@ -86,6 +87,7 @@ export default function App() {
           <Route path="/events/pay" element={<EventPay />} />
           <Route path="/events/workshop" element={<WorkshopInquiry />} />
           <Route path="/events/workshop/pay" element={<WorkshopPay />} />
+          <Route path="/membership" element={<Membership />} />
           <Route path="/thanks" element={<Thanks />} />
           <Route path="*" element={<Home narrow={vp.narrow} />} />
         </Routes>

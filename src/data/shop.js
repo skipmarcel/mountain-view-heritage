@@ -21,6 +21,10 @@ export const EVENT = { pricePerPerson: 20700, minGuests: 6, maxGuests: 20 };
 export const WORKSHOP = { perDay: 41300, allDays: 103100, cashPerDay: 40000, cashAllDays: 100000, deposit: 10400, depositCredit: 10000 };
 export const workshopPrice = (count, totalDays, cash = false) =>
   count === totalDays ? (cash ? WORKSHOP.cashAllDays : WORKSHOP.allDays) : count * (cash ? WORKSHOP.cashPerDay : WORKSHOP.perDay);
+// Farm Club membership, per household per year. Charged as a yearly Stripe subscription that renews
+// automatically. $200 plus Stripe's fee, like the site's other prices.
+export const MEMBERSHIP = { annualFee: 20700 };
+
 export const workshopCashDue = (count, totalDays) => workshopPrice(count, totalDays, true) - WORKSHOP.depositCredit;
 
 export const money = (cents) => (cents / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: cents % 100 ? 2 : 0 });

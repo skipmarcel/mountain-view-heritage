@@ -8,6 +8,7 @@ export const navLinks = [
   { to: '/education', label: 'Education' },
   { to: '/events', label: 'Events' },
   { to: '/calendar', label: 'Class Calendar' },
+  { to: '/membership', label: 'Farm Club' },
   { to: '/shop', label: 'Shop' },
   { to: '/contact', label: 'Contact' },
 ];
@@ -26,6 +27,7 @@ export const banners = {
   'events/workshop': { img: P + 'kitchen-09.jpg', pos: 'center 50%', kicker: 'Check availability', title: 'Life-to-Table Workshop' },
   shop: { img: P + 'food-05.jpg', pos: 'center 50%', kicker: 'Hats & stickers', title: 'Shop' },
   'events/workshop/pay': { img: P + 'kitchen-09.jpg', pos: 'center 50%', kicker: 'Life-to-Table Workshop', title: 'Workshop payment' },
+  membership: { img: P + 'farm-pig-05.jpg', pos: 'center 40%', kicker: 'Mountain View Heritage', title: 'Farm Club' },
   'events/pay': { img: P + 'food-03.jpg', pos: 'center 50%', kicker: 'Private events', title: 'Pay for an event' },
   thanks: { img: P + 'mt-hood-trees.jpg', pos: 'center 40%', kicker: 'Payment received', title: 'Thank you' },
   contact: { img: P + 'mt-hood.jpg', pos: 'center 15%', kicker: 'Questions, groups, visits', title: 'Contact', height: '88vh' },

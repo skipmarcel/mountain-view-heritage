@@ -4,7 +4,8 @@
 // Prices always come from src/data/shop.js, never from the browser.
 
 import Stripe from 'stripe';
-import { MERCH, MAX_PER_ITEM, SHIPPING, PICKUP_ADDRESS, EVENT, WORKSHOP, money, workshopPrice, workshopCashDue } from '../src/data/shop.js';
+import { MERCH, MAX_PER_ITEM, SHIPPING, PICKUP_ADDRESS, EVENT, WORKSHOP, MEMBERSHIP, money, workshopPrice, workshopCashDue } from '../src/data/shop.js';
+import { VERSION, FIELDS, membershipTerm, signatureMatches } from '../src/data/membership.js';
 import { workshop } from '../src/data/content.js';
 
 function merchSession({ items = {}, delivery }, origin) {
@@ -69,6 +70,45 @@ function workshopSession({ days, payment }) {
   };
 }
 
+// Farm Club membership: a yearly subscription. The signed agreement details go into Stripe's
+// metadata, so each member's payment record also shows what they signed and when.
+function membershipSession({ member = {}, signature, agreed }) {
+  const m = {};
+  for (const f of FIELDS) {
+    m[f.key] = String(member[f.key] ?? '').trim().replace(/\s+/g, ' ').slice(0, f.max);
+    if (f.required && !m[f.key]) throw new Error(`Please fill in ${f.label.toLowerCase()}.`);
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m.email)) throw new Error('Please enter a valid email address.');
+  if (agreed !== true) throw new Error('Please confirm that you agree to the Membership Agreement.');
+  if (!signatureMatches(signature, m.name)) throw new Error('Please type your full name exactly as entered above to sign.');
+
+  const term = membershipTerm();
+  const record = {
+    order_type: 'membership',
+    agreement_version: VERSION,
+    signed_name: String(signature).trim().replace(/\s+/g, ' ').slice(0, 100),
+    signed_at: new Date().toISOString(),
+    term: `${term.from} to ${term.to}`,
+    ...m,
+  };
+  return {
+    mode: 'subscription',
+    customer_email: m.email,
+    line_items: [{
+      quantity: 1,
+      price_data: {
+        currency: 'usd',
+        unit_amount: MEMBERSHIP.annualFee,
+        recurring: { interval: 'year' },
+        product_data: { name: 'Mountain View Heritage Farm Club membership (yearly)' },
+      },
+    }],
+    custom_text: { submit: { message: `Your membership renews every year at ${money(MEMBERSHIP.annualFee)} until you cancel. To cancel, email Nick before your renewal date.` } },
+    metadata: record,
+    subscription_data: { metadata: record },
+  };
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed.' });
   if (!process.env.STRIPE_SECRET_KEY) return res.status(503).json({ error: 'Online payments are not set up yet.' });
@@ -77,7 +117,10 @@ export default async function handler(req, res) {
   const body = req.body || {};
   let params;
   try {
-    params = body.type === 'event' ? eventSession(body) : body.type === 'workshop' ? workshopSession(body) : merchSession(body, origin);
+    params = body.type === 'event' ? eventSession(body)
+      : body.type === 'workshop' ? workshopSession(body)
+      : body.type === 'membership' ? membershipSession(body)
+      : merchSession(body, origin);
   } catch (err) {
     return res.status(400).json({ error: err.message });
   }
@@ -86,8 +129,8 @@ export default async function handler(req, res) {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded_page',
-      mode: 'payment',
-      return_url: `${origin}/thanks?type=${['event', 'workshop'].includes(body.type) ? body.type : 'merch'}${params.metadata.cash_due ? `&due=${encodeURIComponent(params.metadata.cash_due)}` : ''}`,
+      mode: 'payment', // membershipSession overrides this with 'subscription'
+      return_url: `${origin}/thanks?type=${['event', 'workshop', 'membership'].includes(body.type) ? body.type : 'merch'}${params.metadata.cash_due ? `&due=${encodeURIComponent(params.metadata.cash_due)}` : ''}`,
       ...params,
     });
     res.status(200).json({ clientSecret: session.client_secret });
